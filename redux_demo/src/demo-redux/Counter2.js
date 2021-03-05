@@ -19,6 +19,7 @@ export const Counter2 = (props) => {
           props.decrement();
         }}
       />
+      <Text>{JSON.stringify(props.data.name)}</Text>
     </View>
   );
 };

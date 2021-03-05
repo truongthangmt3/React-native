@@ -22,12 +22,11 @@ const slice = createSlice({
   },
 });
 
-export const getDataFromApi = () => (dispatch) => {
-  axios
-    .get('http://www.json-generator.com/api/json/get/bUkdRpDoRK?indent=2')
-    .then((res) => {
-      dispatch(setData(res.data));
-    });
+export const getDataFromApi = () => async (dispatch) => {
+  const res = await axios.get(
+    'http://www.json-generator.com/api/json/get/bUkdRpDoRK?indent=2',
+  );
+  dispatch(setData(res.data));
 };
 
 export const {increment, decrement, setData} = slice.actions;
