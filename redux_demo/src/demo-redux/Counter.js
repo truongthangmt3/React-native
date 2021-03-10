@@ -6,12 +6,21 @@ import {
   increment,
   decrement,
   getDataFromApi,
+  getDataFromApiAsync,
 } from './CounterSlice';
 
 const Counter = () => {
   //   const [value, setValue] = useState(0);
   const data = useSelector(counterState);
   const dispatch = useDispatch();
+
+  if (data.isLoading) {
+    return <Text>Đang tải dữ liệu</Text>;
+  }
+
+  if (data.isError) {
+    return <Text>Đã có lỗi xảy ra</Text>;
+  }
 
   return (
     <View style={styles.container}>
@@ -21,7 +30,8 @@ const Counter = () => {
         title="Tăng"
         onPress={() => {
           // dispatch(increment());
-          dispatch(getDataFromApi());
+          // dispatch(getDataFromApi());
+          dispatch(getDataFromApiAsync());
         }}
       />
       <Button

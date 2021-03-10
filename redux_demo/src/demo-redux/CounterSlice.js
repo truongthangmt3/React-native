@@ -1,12 +1,22 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+
+export const getDataFromApiAsync = createAsyncThunk(
+  'counter/getData',
+  async () => {
+    const res = await axios.get(
+      'http://www.json-generator.com/api/json/get/bTZTlHGoJe?indent=2',
+    );
+    return res.data;
+  },
+);
 
 const slice = createSlice({
   name: 'counter',
   initialState: {
     value: 1,
     name: {},
-    isLoading: true,
+    isLoading: false,
     isError: false,
   },
   reducers: {
@@ -16,8 +26,21 @@ const slice = createSlice({
     decrement: (state) => {
       state.value -= 1;
     },
-    setData: (state, action) => {
+    // setData: (state, action) => {
+    //   state.name = action.payload;
+    // },
+  },
+  extraReducers: {
+    [getDataFromApiAsync.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getDataFromApiAsync.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.name = action.payload;
+    },
+    [getDataFromApiAsync.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
     },
   },
 });
@@ -25,7 +48,7 @@ const slice = createSlice({
 export const getDataFromApi = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      'http://www.json-generator.com/api/json/get/bUkdRpDoRK?indent=2',
+      'http://www.json-generator.com/api/json/get/bUkdRpDoRK?indentfasdf',
     );
     dispatch(setData(res.data));
   } catch (error) {

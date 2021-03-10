@@ -19,7 +19,7 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Counter />
-        <Counter2 />
+        {/* <Counter2 /> */}
       </SafeAreaView>
     </Provider>
   );
