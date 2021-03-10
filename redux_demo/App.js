@@ -12,6 +12,9 @@ import Counter from './src/demo-redux/Counter';
 import Counter2 from './src/demo-redux/Counter2';
 import {Provider} from 'react-redux';
 import store from './src/store';
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
 
 const App = () => {
   return (
